@@ -28,8 +28,8 @@ public class SandwichCalculator {
 		return totalScore;
 	}
 	
-	public double calcualteResult()
+	public int calcualteResult()
 	{
-		return getTotalScore()/numberData.length;
+		return (int)(((double)(getTotalScore())/numberData.length)*100);
 	}
 }
