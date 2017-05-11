@@ -1,9 +1,12 @@
 package hello;
 
 public class SandwichCalculator {
-	private final int NUM_QUESTIONS = 3;
-
-	private int[] numberData = new int[NUM_QUESTIONS];
+	private int[] numberData;
+	
+	public SandwichCalculator(int[] answers)
+	{
+		numberData = answers;
+	}
 	
 	// method to enter the score into the array
 	public void enterScore(int questionNumber)
