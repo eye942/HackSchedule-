@@ -38,6 +38,8 @@ public class GreetingController
     @RequestMapping("/results")
     public String result()
     {
+    	int score = 0;
+    	final int MAX_SCORE = 100;
     	String text = "";
     	Scanner scan = null;
 
@@ -50,9 +52,24 @@ public class GreetingController
 
     	if (scan != null)
     	{
-	    	while (scan.hasNextLine())
+	    	while (scan.hasNextLine() )
 	    	{
-	    		text += scan.nextLine() + "\n";
+	    		String line = scan.nextLine();
+	    		
+	    		if (line.contains("*") && score >= 50)
+	    		{
+	    			line = "<p>It seems to be a sandwich."  +
+    						" It has a  score of " + score + 
+    						" out of " + MAX_SCORE + ".</p>";
+	    		}
+	    		else if (line.contains("*") && score < 50)
+	    		{
+	    			line = "<p>It does not seem to be a sandwich." +
+    						" It has a  score of " + score + 
+    						" out of " + MAX_SCORE + ".</p>";
+	    		}
+	    		
+	    		text += line + "\n";
 	    	}
     	}
 
