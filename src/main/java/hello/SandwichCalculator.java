@@ -28,7 +28,7 @@ public class SandwichCalculator {
 		return totalScore;
 	}
 	
-	public int calcualteResult()
+	public int calculateResult()
 	{
 		return (int)(((double)(getTotalScore())/numberData.length)*100);
 	}

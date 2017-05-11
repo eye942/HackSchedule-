@@ -38,14 +38,14 @@ public class GreetingController
     
     @RequestMapping("/results")
     public String result(@RequestParam("1") int first, 
-    					@RequestParam("1") int second,
-    					@RequestParam("1") int third)
+    					@RequestParam("2") int second,
+    					@RequestParam("3") int third)
     {
     	SandwichCalculator sandCalc;
     	
     	sandCalc = new SandwichCalculator(new int[]{first,second,third});
     	
-    	int score = 0;
+    	int score = sandCalc.calculateResult();
     	final int MAX_SCORE = 100;
     	String text = "";
     	Scanner scan = null;
