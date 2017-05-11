@@ -8,7 +8,7 @@ public class SandwichCalculator {
 	// method to enter the score into the array
 	public void enterScore(int questionNumber)
 	{
-		
+		// TODO fill in the code here
 	}
 	
 	// method that returns the score to the GreetingController
