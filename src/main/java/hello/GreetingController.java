@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -74,5 +76,10 @@ public class GreetingController
     	}
 
         return text;
+    }
+    
+    public @ResponseBody String byParameter(@RequestParam("foo") String foo) {
+        return "Mapped by path + method + presence of query parameter! (MappingController) - foo = "
+               + foo;
     }
 }
