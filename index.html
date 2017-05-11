@@ -4,13 +4,12 @@
 
 <h1>Are you eating a sandwich?</h1>
 
-<form>
-	<p>Does the object in front of you have a starch?</p>
-  <input type="radio" name="starch" value="yes" checked> Yes<br>
-  <input type="radio" name="starch" value="no"> No<br>
+<form name="form" action="http://localhost:8080/results" method="GET">
+	<p>Does the object in front of you have a type of bread?</p>
+  	<input type="radio" name="starch" value="yes" checked> Yes<br>
+  	<input type="radio" name="starch" value="no"> No<br>
+  	<input type="submit" value="Submit">
 </form>
-
-<a href="http://localhost:8080/results"><button>Submit</button></a>
 
 
 </body>
