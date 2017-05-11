@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController
 {
 
-
     @RequestMapping("/")
     public String sandwich()
     {
@@ -38,8 +37,14 @@ public class GreetingController
     }
     
     @RequestMapping("/results")
-    public String result()
+    public String result(@RequestParam("1") int first, 
+    					@RequestParam("1") int second,
+    					@RequestParam("1") int third)
     {
+    	SandwichCalculator sandCalc;
+    	
+    	sandCalc = new SandwichCalculator(new int[]{first,second,third});
+    	
     	int score = 0;
     	final int MAX_SCORE = 100;
     	String text = "";
