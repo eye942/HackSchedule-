@@ -11,7 +11,7 @@ public class GreetingController
 {
 
 
-    @RequestMapping("/greeting")
+    @RequestMapping("/")
     public String sandwich()
     {
     	String text = "";
@@ -19,6 +19,30 @@ public class GreetingController
 
     	try {
 			scan = new Scanner(new File("index.html"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    	if (scan != null)
+    	{
+	    	while (scan.hasNextLine())
+	    	{
+	    		text += scan.nextLine() + "\n";
+	    	}
+    	}
+
+        return text;
+    }
+    
+    @RequestMapping("/results")
+    public String result()
+    {
+    	String text = "";
+    	Scanner scan = null;
+
+    	try {
+			scan = new Scanner(new File("results.html"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
