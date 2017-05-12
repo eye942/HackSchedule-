@@ -3,14 +3,11 @@ package hello;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -42,14 +39,19 @@ public class GreetingController
         return text;
     }
     
+    // Returns the results page when valid
     @RequestMapping(value="/results",
     				method=RequestMethod.POST)
-    public String result(@RequestBody String answers)
+    public String result(@RequestBody String answers) // Puts HTML form into String
     {
-    	SandwichCalculator sandCalc = new SandwichCalculator(answerArray(answers));
-    	int score = sandCalc.calculateResult();
-    	
     	final int MAX_SCORE = 100;
+    	
+    	// SandCalc obj created, which holds the array of
+    	// answers made with answerArray method
+    	SandwichCalculator sandCalc = new SandwichCalculator(answerArray(answers));
+    	int score = sandCalc.calculateResult(MAX_SCORE); // Calculates score based on array values
+    	
+    	
     	String text = "";
     	Scanner scan = null;
 
@@ -61,26 +63,26 @@ public class GreetingController
 
     	if (scan != null)
     	{
-	    	while (scan.hasNextLine() )
+	    	while (scan.hasNextLine()) // Goes through each line of results.html
 	    	{
-	    		String line = scan.nextLine();
+	    		String line = scan.nextLine(); // Each line stored in this string
 	    		
-	    		if (line.contains("*") && score >= 50 && score <=100)
+	    		// One line has an asterisk, so that line will be rewritten
+	    		if (line.contains("*") && score >= MAX_SCORE/2 && score <= MAX_SCORE)
 	    		{
 	    			line = "<p>It seems to be a sandwich."  +
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
 	    		}
-	    		else if (line.contains("*") && score < 50 && score > 0)
+	    		else if (line.contains("*") && score < MAX_SCORE/2 && score > 0)
 	    		{
 	    			line = "<p>It does not seem to be a sandwich." +
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
 	    		}
-	    		
-	    		else if (line.contains("*") && (score < 0 || score > 100))
+	    		else if (line.contains("*") && (score < 0 || score > MAX_SCORE))
 	    		{
-	    			line = "<p>Pls don't mess with our code, we know what we're doing." +
+	    			line = "<p>Please don't mess with our code, we know what we're doing." +
     						"</p>";
 	    		}
 	    		
@@ -91,6 +93,9 @@ public class GreetingController
         return text;
     }
     
+    // Parses the data from an HTML form; returns variable values:
+    // Example Input: "var1=4&var2=6&var3=9"
+    // Returns: {4,6,9}
     private static int[] answerArray(String fullParameters)
     {
     	String[] toParse = fullParameters.split("&");

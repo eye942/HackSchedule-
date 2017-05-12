@@ -8,12 +8,6 @@ public class SandwichCalculator {
 		numberData = answersParameter;
 	}
 	
-	// method to enter the score into the array
-	public void enterScore(int questionNumber)
-	{
-		// TODO fill in the code here
-	}
-	
 	// method that returns the total score
 	// EXPECTS ANSWERS IN 0=NO, 1=YES FORMAT
 	private int getTotalScore()
@@ -28,8 +22,9 @@ public class SandwichCalculator {
 		return totalScore;
 	}
 	
-	public int calculateResult()
+	// Returns the result out of the given max result
+	public int calculateResult(int maxResult)
 	{
-		return (int)(((double)(getTotalScore())/numberData.length)*100);
+		return (int)(((double)(getTotalScore())/numberData.length)*maxResult);
 	}
 }
