@@ -44,10 +44,11 @@ public class GreetingController
     
     @RequestMapping(value="/results",
     				method=RequestMethod.POST)
-    public String result(@RequestBody Answers answers)
+    public String result(@RequestBody String answers)
     {
-    	SandwichCalculator sandCalc = new SandwichCalculator(answers.toAnArray());
+    	SandwichCalculator sandCalc = new SandwichCalculator(answerArray(answers));
     	int score = sandCalc.calculateResult();
+    	
     	final int MAX_SCORE = 100;
     	String text = "";
     	Scanner scan = null;
@@ -84,8 +85,31 @@ public class GreetingController
         return text;
     }
     
-    public @ResponseBody String byParameter(@RequestParam("foo") String foo) {
-        return "Mapped by path + method + presence of query parameter! (MappingController) - foo = "
-               + foo;
+    private static int[] answerArray(String fullParameters)
+    {
+    	String[] toParse = fullParameters.split("&");
+    	String[] answers = new String[toParse.length];
+    	int[] finalAnswer = new int[toParse.length];
+    	
+    	for (int i = 0; i < toParse.length; i++)
+    	{
+    		String questionAnswerCombo = toParse[i];
+    		String[] QACombo = questionAnswerCombo.split("=");
+    		answers[i] = QACombo[1];
+    	}
+    	
+    	for (int i = 0; i < toParse.length; i++)
+    	{
+    		String answer = answers[i];
+    		
+    		if (answer.equals("1"))
+    			finalAnswer[i] = 1;
+    		else if (answer.equals("0"))
+    			finalAnswer[i] = 0;
+    		else
+    			finalAnswer[i] = -1;
+    	}
+    	
+    	return finalAnswer;
     }
 }
