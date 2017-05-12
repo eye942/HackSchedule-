@@ -65,17 +65,23 @@ public class GreetingController
 	    	{
 	    		String line = scan.nextLine();
 	    		
-	    		if (line.contains("*") && score >= 50)
+	    		if (line.contains("*") && score >= 50 && score <=100)
 	    		{
 	    			line = "<p>It seems to be a sandwich."  +
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
 	    		}
-	    		else if (line.contains("*") && score < 50)
+	    		else if (line.contains("*") && score < 50 && score > 0)
 	    		{
 	    			line = "<p>It does not seem to be a sandwich." +
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
+	    		}
+	    		
+	    		else if (line.contains("*") && (score < 0 || score > 100))
+	    		{
+	    			line = "<p>Pls don't mess with our code, we know what we're doing." +
+    						"</p>";
 	    		}
 	    		
 	    		text += line + "\n";
