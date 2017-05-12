@@ -2,8 +2,13 @@ package hello;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController
 {
 
+	ArrayList<Integer> arrayInstance;
+	
     @RequestMapping("/")
     public String sandwich()
     {
@@ -21,7 +28,6 @@ public class GreetingController
     	try {
 			scan = new Scanner(new File("index.html"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -36,15 +42,11 @@ public class GreetingController
         return text;
     }
     
-    @RequestMapping("/results")
-    public String result(@RequestParam("1") int first, 
-    					@RequestParam("2") int second,
-    					@RequestParam("3") int third)
+    @RequestMapping(value="/results",
+    				method=RequestMethod.POST)
+    public String result(@RequestBody Answers answers)
     {
-    	SandwichCalculator sandCalc;
-    	
-    	sandCalc = new SandwichCalculator(new int[]{first,second,third});
-    	
+    	SandwichCalculator sandCalc = new SandwichCalculator(answers.toAnArray());
     	int score = sandCalc.calculateResult();
     	final int MAX_SCORE = 100;
     	String text = "";
@@ -53,7 +55,6 @@ public class GreetingController
     	try {
 			scan = new Scanner(new File("results.html"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
