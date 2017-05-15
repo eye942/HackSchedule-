@@ -34,9 +34,6 @@ public class QuestionsParser {
 			}
 			
 			// WRITING THE HTML FILE BASED ON THE QUESTIONS IN THE QUESTION FILE
-				
-            FileWriter writer = new FileWriter("index.html", false);
-            writer.write("");
             
             pw.println("<!DOCTYPE html>\n");
             pw.println("<html>\n");
@@ -63,8 +60,6 @@ public class QuestionsParser {
 		  	pw.println("data: JSON.stringify({answers:toReturn}),\nsuccess:function(data, textStatus, xhr)\n{\n");
 		  	pw.println("document.open();\ndocument.write(xhr.responseText);\ndocument.close();\n}\n");
 		  	pw.println("});\n}\n</script>\n<button onclick=\"forward()\">Sandwich?</button>\n</body>\n</html>");
-
-            writer.close();
             
 			questionScanner.close();
 			
