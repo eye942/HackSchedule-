@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,10 +16,10 @@ public class QuestionsParser {
 	// reads the questions and returns a string formatted in HTML
 	public static void parseQuestionsFromFile()
 	{
-		FileWriter fw;
 		try
 		{
 			// Reading the question file
+			FileWriter fw;
 			questionScanner = new Scanner(new File("questions"));
 			fw = new FileWriter("index.html");
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -50,7 +49,7 @@ public class QuestionsParser {
             	pw.println("\n");
             }
             
-		  	pw.println("</div>\n<p></p>\n</form>\n");
+		  	pw.println("<p></p>\n</form>\n");
 		  	pw.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>");
 		  	pw.println("<script>\nfunction forward()\n{\nvar information = $(\"form\").serializeArray();");
 		  	pw.println("var toReturn = [];\nfor (i = 0; i < information.length; i++)\n{\n");
