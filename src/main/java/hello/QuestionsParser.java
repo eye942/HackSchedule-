@@ -58,7 +58,7 @@ public class QuestionsParser {
 		  	pw.println("contentType: \"application/json; charset=utf-8\",\ndatatype: \"json\",\n");
 		  	pw.println("data: JSON.stringify({answers:toReturn}),\nsuccess:function(data, textStatus, xhr)\n{\n");
 		  	pw.println("document.open();\ndocument.write(xhr.responseText);\ndocument.close();\n}\n");
-		  	pw.println("});\n}\n</script>\n<button onclick=\"forward()\">Sandwich?</button>\n</body>\n</html>");
+		  	pw.println("});\n}\n</script>\n<button onclick=\"forward()\">Sandwich?</button>\n<img src=\"http://gifrific.com/wp-content/uploads/2012/08/noms-shaggy-sandwich.gif\">\n</body>\n</html>");
             
 			questionScanner.close();
 			
