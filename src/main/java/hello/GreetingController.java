@@ -2,7 +2,6 @@ package hello;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController
 {
-
-	ArrayList<Integer> arrayInstance;
+	private static int maxScore;
 	
     @RequestMapping("/")
     public String sandwich()
@@ -44,9 +42,9 @@ public class GreetingController
     				method=RequestMethod.POST)
     public String result(@RequestBody Answers answers) // Puts HTML form into Answers
     {
-    	final int MAX_SCORE = 100;
+    	final int MAX_SCORE = maxScore;
     	
-    	boolean[] answerList = answers.getAnswers();
+    	int[] answerList = answers.getAnswers();
     	// SandCalc obj created, which holds the array of
     	// answers made with answerArray method
     	SandwichCalculator sandCalc = new SandwichCalculator(answerList);
@@ -83,7 +81,7 @@ public class GreetingController
 	    		else if (line.contains("*") && (score < 0 || score > MAX_SCORE))
 	    		{
 	    			line = "<p>Please don't mess with our code, we know what we're doing." +
-    						"</p>";
+    						"</p>" + MAX_SCORE + " " + score;
 	    		}
 	    		
 	    		text += line + "\n";
@@ -91,5 +89,10 @@ public class GreetingController
     	}
 
         return text;
+    }
+    
+    public static void changeMaxScore(int mxScore)
+    {
+    	maxScore = mxScore;
     }
 }

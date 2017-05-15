@@ -26,11 +26,26 @@ public class QuestionsParser {
 			PrintWriter pw = new PrintWriter(bw);
 		
 			ArrayList<String> questions = new ArrayList<String>();
+			ArrayList<String> weights = new ArrayList<String>();
+			ArrayList<Integer> realWeights = new ArrayList<Integer>();
+			
 			
 			while (questionScanner.hasNextLine())
 			{
-				questions.add(questionScanner.nextLine());
+				String[] QuestionAnswer = questionScanner.nextLine().split(";");
+				
+				questions.add(QuestionAnswer[0]);
+				
+				weights.add(QuestionAnswer[1]);
 			}
+			
+			realWeights = getRealWeights(weights);
+			
+			// Pass max score to GreetingController:
+			int score = 0;
+			for (Integer i : realWeights)
+				score += i;
+			GreetingController.changeMaxScore(score);
 			
 			// WRITING THE HTML FILE BASED ON THE QUESTIONS IN THE QUESTION FILE
             
@@ -44,8 +59,9 @@ public class QuestionsParser {
             	pw.println("<p>");
             	pw.println((i+1) + ". ");
             	pw.println(questions.get(i));
-            	pw.println("<p>\n<input type=\"radio\" name=\""+ (i+1) + "\" value=true checked> Yes<br>");
-            	pw.println("<input type=\"radio\" name=\""+ (i+1) + "\" value=false> No<br>");
+            	pw.println("Weight: " + realWeights.get(i));
+            	pw.println("<p>\n<input type=\"radio\" name=\""+ (i+1) + "\" value=" + realWeights.get(i) +" checked> Yes<br>");
+            	pw.println("<input type=\"radio\" name=\""+ (i+1) + "\" value=0> No<br>");
             	pw.println("\n");
             }
             
@@ -69,5 +85,17 @@ public class QuestionsParser {
 		{
 			//TODO
 		}
+	}
+	
+	private static ArrayList<Integer> getRealWeights(ArrayList<String> str)
+	{
+		ArrayList<Integer> arrList = new ArrayList<Integer>();
+		
+		for (String s : str)
+		{
+			arrList.add(Integer.parseInt(s));
+		}
+		
+		return arrList;
 	}
 }

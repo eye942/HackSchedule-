@@ -2,13 +2,20 @@ package hello;
 
 public class Answers
 {
-	private boolean[] answers;
+	private int[] answers;
 	
-	public boolean[] getAnswers() {
+	public int[] getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(boolean[] answers) {
+	public void setAnswers(int[] answers) {
 		this.answers = answers;
+	}
+	
+	public int answerSum() {
+		int sum = 0;
+		for (int i : answers)
+			sum += i;
+		return sum;
 	}
 }

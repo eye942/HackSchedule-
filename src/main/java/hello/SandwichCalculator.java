@@ -1,9 +1,9 @@
 package hello;
 
 public class SandwichCalculator {
-	private boolean[] numberData;
+	private int[] numberData;
 	
-	public SandwichCalculator(boolean[] answersParameter)
+	public SandwichCalculator(int[] answersParameter)
 	{
 		numberData = answersParameter;
 	}
@@ -14,12 +14,9 @@ public class SandwichCalculator {
 	{
 		int totalScore = 0;
 		
-		for (boolean bool : numberData)
+		for (int i : numberData)
 		{
-			if (bool)
-			{
-				totalScore++;
-			}
+			totalScore += i;
 		}
 		
 		return totalScore;
@@ -28,6 +25,6 @@ public class SandwichCalculator {
 	// Returns the result out of the given max result
 	public int calculateResult(int maxResult)
 	{
-		return (int)(((double)(getTotalScore())/numberData.length)*maxResult);
+		return (int)(((double)(getTotalScore())));
 	}
 }
