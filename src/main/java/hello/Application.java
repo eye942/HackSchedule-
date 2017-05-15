@@ -9,7 +9,7 @@ public class Application
 {	
 	// Simply runs the applications
     public static void main(String[] args) {
+    	QuestionsParser.parseQuestionsFromFile();
         SpringApplication.run(Application.class, args);
-		QuestionsParser.parseQuestionsFromFile();
     }
 }

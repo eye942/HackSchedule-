@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class QuestionsParser {
 	static Scanner questionScanner;
@@ -27,53 +29,71 @@ public class QuestionsParser {
 	// reads the questions and returns a string formatted in HTML
 	public static void parseQuestionsFromFile()
 	{
-		File questionSourceHTML = new File("index.html");
-		ArrayList<String> questions = new ArrayList<String>();
-		
-		int numQuestions = 0;
-		String formattedHTML;
-		
-		while (questionScanner.hasNextLine())
+		FileWriter fw;
+		try
 		{
-			numQuestions++;
-			questions.add(questionScanner.nextLine());
-		}
+			questionScanner = new Scanner(new File("questions"));
+			fw = new FileWriter("index.html");
+			fw = new FileWriter("index.html", true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
 		
-		// WRITING THE HTML FILE BASED ON THE QUESTIONS IN THE QUESTION FILE
-		try {
-            FileWriter writer = new FileWriter("index.html", true);
-            
-            writer.flush();
-            
-            writer.write("<!DOCTYPE html>\n");
-            writer.write("<html>\n");
-            writer.write("<body>\n");
-            writer.write("<h1>Are you eating a sandwich?</h1>\n");
-            writer.write("<form name=\"form\" action=\"http://localhost:8080/results\" method=\"POST\">\n");
-            
-            for (int i = 0; i < numQuestions; i++) {
-            	writer.write("<p>");
-            	writer.write((i+1) + ". ");
-            	writer.write(questions.get(i));
-            	writer.write("<p>\n<input type=\"radio\" name=\""+ (i+1) + "\" value=true checked> Yes<br>");
-            	writer.write("<input type=\"radio\" name=\""+ (i+1) + "\" value=false> No<br>");
-            	writer.write("\n");
-            }
-            
-		  	writer.write("</div>\n<p></p>\n</form>\n");
-		  	writer.write("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>");
-		  	writer.write("<script>\nfunction forward()\n{\nvar information = $(\"form\").serializeArray();");
-		  	writer.write("var toReturn = [];\nfor (i = 0; i < information.length; i++)\n{\n");
-		  	writer.write("toReturn[i] = information[i].value;\n}\n$.ajax({\nurl:\"/results\",\n");
-		  	writer.write("type: \"POST\",\ncontentType: \"application/json; charset=utf-8\",\n");
-		  	writer.write("contentType: \"application/json; charset=utf-8\",\ndatatype: \"json\",\n");
-		  	writer.write("data: JSON.stringify({answers:toReturn}),\nsuccess:function(data, textStatus, xhr)\n{\n");
-		  	writer.write("document.open();\ndocument.write(xhr.responseText);\ndocument.close();\n}\n");
-		  	writer.write("});\n}\n</script>\n<button onclick=\"forward()\">Sandwich?</button>\n</body>\n</html>");
-
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		
+		
+		
+		
+			ArrayList<String> questions = new ArrayList<String>();
+			
+			while (questionScanner.hasNextLine())
+			{
+				questions.add(questionScanner.nextLine());
+			}
+			
+			// WRITING THE HTML FILE BASED ON THE QUESTIONS IN THE QUESTION FILE
+			try {
+				// Empty current
+				
+				
+				
+	            FileWriter writer = new FileWriter("index.html", false);
+	            writer.write("");
+	            
+	            pw.println("<!DOCTYPE html>\n");
+	            pw.println("<html>\n");
+	            pw.println("<body>\n");
+	            pw.println("<h1>Are you eating a sandwich?</h1>\n");
+	            pw.println("<form name=\"form\" action=\"http://localhost:8080/results\" method=\"POST\">\n");
+	            
+	            for (int i = 0; i < questions.size(); i++) {
+	            	pw.println("<p>");
+	            	pw.println((i+1) + ". ");
+	            	pw.println(questions.get(i));
+	            	pw.println("<p>\n<input type=\"radio\" name=\""+ (i+1) + "\" value=true checked> Yes<br>");
+	            	pw.println("<input type=\"radio\" name=\""+ (i+1) + "\" value=false> No<br>");
+	            	pw.println("\n");
+	            }
+	            
+			  	pw.println("</div>\n<p></p>\n</form>\n");
+			  	pw.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>");
+			  	pw.println("<script>\nfunction forward()\n{\nvar information = $(\"form\").serializeArray();");
+			  	pw.println("var toReturn = [];\nfor (i = 0; i < information.length; i++)\n{\n");
+			  	pw.println("toReturn[i] = information[i].value;\n}\n$.ajax({\nurl:\"/results\",\n");
+			  	pw.println("type: \"POST\",\ncontentType: \"application/json; charset=utf-8\",\n");
+			  	pw.println("contentType: \"application/json; charset=utf-8\",\ndatatype: \"json\",\n");
+			  	pw.println("data: JSON.stringify({answers:toReturn}),\nsuccess:function(data, textStatus, xhr)\n{\n");
+			  	pw.println("document.open();\ndocument.write(xhr.responseText);\ndocument.close();\n}\n");
+			  	pw.println("});\n}\n</script>\n<button onclick=\"forward()\">Sandwich?</button>\n</body>\n</html>");
+	
+	            writer.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			questionScanner.close();
+			pw.flush();
+			pw.close();
+		} catch(IOException e)
+		{
+			//TODO
+		}
 	}
 }
