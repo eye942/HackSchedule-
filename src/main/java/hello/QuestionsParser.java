@@ -3,8 +3,6 @@ package hello;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
