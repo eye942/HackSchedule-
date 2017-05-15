@@ -88,8 +88,31 @@ Weight: 2
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-
-</script>
+		function forward()
+		{
+			var information = $("form").serializeArray();
+			
+			var toReturn = [];
+			for (i = 0; i < information.length; i++)
+			{
+				toReturn[i] = information[i].value;
+			}
+			console.log(toReturn);
+	 		$.ajax({
+	 		   	url:"/results",
+	 			type: "POST",
+	 			contentType: "application/json; charset=utf-8",
+	 			datatype: "json",
+			   	data: JSON.stringify({answers:toReturn}),
+			   	success:function(data, textStatus, xhr)
+			   	{
+			   		document.open();
+			   		document.write(xhr.responseText);
+			   		document.close();
+        		}
+	 		});
+		}
+		</script>
 <p style="text-align:center">
 <button onclick="forward()">Sandwich?</button>
 </p>
