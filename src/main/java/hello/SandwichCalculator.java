@@ -9,7 +9,6 @@ public class SandwichCalculator {
 	}
 	
 	// method that returns the total score
-	// EXPECTS ANSWERS IN true, false FORMAT
 	private int getTotalScore()
 	{
 		int totalScore = 0;
@@ -25,6 +24,6 @@ public class SandwichCalculator {
 	// Returns the result out of the given max result
 	public int calculateResult(int maxResult)
 	{
-		return (int)(((double)(getTotalScore())));
+		return getTotalScore();
 	}
 }

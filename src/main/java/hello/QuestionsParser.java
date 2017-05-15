@@ -98,4 +98,41 @@ public class QuestionsParser {
 		
 		return arrList;
 	}
+	
+	public static void setScores()
+	{
+		try
+		{
+			// Reading the question file
+			questionScanner = new Scanner(new File("questions"));
+		
+			ArrayList<String> questions = new ArrayList<String>();
+			ArrayList<String> weights = new ArrayList<String>();
+			ArrayList<Integer> realWeights = new ArrayList<Integer>();
+			
+			
+			while (questionScanner.hasNextLine())
+			{
+				String[] QuestionAnswer = questionScanner.nextLine().split(";");
+				
+				questions.add(QuestionAnswer[0]);
+				
+				weights.add(QuestionAnswer[1]);
+			}
+			
+			realWeights = getRealWeights(weights);
+			
+			// Pass max score to GreetingController:
+			int score = 0;
+			for (Integer i : realWeights)
+				score += i;
+			GreetingController.changeMaxScore(score);
+			
+			questionScanner.close();
+			
+		} catch(IOException e)
+		{
+			//TODO
+		}
+	}
 }
