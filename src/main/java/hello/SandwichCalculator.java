@@ -1,22 +1,25 @@
 package hello;
 
 public class SandwichCalculator {
-	private int[] numberData;
+	private boolean[] numberData;
 	
-	public SandwichCalculator(int[] answersParameter)
+	public SandwichCalculator(boolean[] answersParameter)
 	{
 		numberData = answersParameter;
 	}
 	
 	// method that returns the total score
-	// EXPECTS ANSWERS IN 0=NO, 1=YES FORMAT
+	// EXPECTS ANSWERS IN true, false FORMAT
 	private int getTotalScore()
 	{
 		int totalScore = 0;
 		
-		for (int i = 0; i < numberData.length; i++)
+		for (boolean bool : numberData)
 		{
-			totalScore += numberData[i];
+			if (bool)
+			{
+				totalScore++;
+			}
 		}
 		
 		return totalScore;

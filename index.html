@@ -1,27 +1,58 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<h1>Are you eating a sandwich?</h1>
-
-<form name="form" action="http://localhost:8080/results" method="POST">
-
-	<p>1. Does the object in front of you have a type of bread?</p>
-  	<input type="radio" name="1" value=1 checked> Yes<br>
-  	<input type="radio" name="1" value=0> No<br>
-  	
-  	<p>2. Does the object in front of you have a type of meat?</p>
-  	<input type="radio" name="2" value=1 checked> Yes<br>
-  	<input type="radio" name="2" value=0> No<br>
-  	
-  	<p>3. Is the object in front of you edible?</p>
-  	<input type="radio" name="3" value=1 checked> Yes<br>
-  	<input type="radio" name="3" value=0> No<br>
-  	
-  	<p></p>
-  	<input type="submit" value="Submit">
-</form>
-
-
-</body>
+	<title>Sandwich Test</title>
+	
+	<body>
+	
+		<h1>Are you eating a sandwich?</h1>
+	
+		<form name="form" action="http://localhost:8080/results" method="POST" id = form>
+		
+			<div id="dynamic_form">
+				<p>1. Does the object in front of you have a type of bread?</p>
+			  	<input type="radio" name="1" value=true checked> Yes<br>
+			  	<input type="radio" name="1" value=false> No<br>
+			  	
+			  	<p>2. Does the object in front of you have a type of meat?</p>
+			  	<input type="radio" name="2" value=true checked> Yes<br>
+			  	<input type="radio" name="2" value=false> No<br>
+			  	
+			  	<p>3. Is the object in front of you edible?</p>
+			  	<input type="radio" name="3" value=true checked> Yes<br>
+			  	<input type="radio" name="3" value=false> No<br>
+		  	</div>
+		  	<p></p>
+		  	
+		</form>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	    <script>
+		function forward()
+		{
+			var information = $("form").serializeArray();
+			
+			var toReturn = [];
+			for (i = 0; i < information.length; i++)
+			{
+				toReturn[i] = information[i].value;
+			}
+			console.log(toReturn);
+	 		$.ajax({
+	 		   	url:"/results",
+	 			type: "POST",
+	 			contentType: "application/json; charset=utf-8",
+	 			datatype: "json",
+			   	data: JSON.stringify({answers:toReturn}),
+			   	success:function(data, textStatus, xhr)
+			   	{
+			   		document.open();
+			   		document.write(xhr.responseText);
+			   		document.close();
+        		}
+	 		});
+		}
+		</script>
+		<button onclick="forward()">Sandwich?</button>
+	</body>
 </html>

@@ -9,6 +9,6 @@ public class Application
 	// Simply runs the applications
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        QuestionsParser parser = new QuestionsParser();
+        //QuestionsParser parser = new QuestionsParser();
     }
 }

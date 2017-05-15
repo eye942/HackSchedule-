@@ -42,15 +42,15 @@ public class GreetingController
     // Returns the results page when valid
     @RequestMapping(value="/results",
     				method=RequestMethod.POST)
-    public String result(@RequestBody String answers) // Puts HTML form into String
+    public String result(@RequestBody Answers answers) // Puts HTML form into Answers
     {
     	final int MAX_SCORE = 100;
     	
+    	boolean[] answerList = answers.getAnswers();
     	// SandCalc obj created, which holds the array of
     	// answers made with answerArray method
-    	SandwichCalculator sandCalc = new SandwichCalculator(answerArray(answers));
+    	SandwichCalculator sandCalc = new SandwichCalculator(answerList);
     	int score = sandCalc.calculateResult(MAX_SCORE); // Calculates score based on array values
-    	
     	
     	String text = "";
     	Scanner scan = null;
@@ -74,7 +74,7 @@ public class GreetingController
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
 	    		}
-	    		else if (line.contains("*") && score < MAX_SCORE/2 && score > 0)
+	    		else if (line.contains("*") && score < MAX_SCORE/2 && score >= 0)
 	    		{
 	    			line = "<p>It does not seem to be a sandwich." +
     						" It has a  score of " + score + 
@@ -91,36 +91,5 @@ public class GreetingController
     	}
 
         return text;
-    }
-    
-    // Parses the data from an HTML form; returns variable values:
-    // Example Input: "var1=4&var2=6&var3=9"
-    // Returns: {4,6,9}
-    private static int[] answerArray(String fullParameters)
-    {
-    	String[] toParse = fullParameters.split("&");
-    	String[] answers = new String[toParse.length];
-    	int[] finalAnswer = new int[toParse.length];
-    	
-    	for (int i = 0; i < toParse.length; i++)
-    	{
-    		String questionAnswerCombo = toParse[i];
-    		String[] QACombo = questionAnswerCombo.split("=");
-    		answers[i] = QACombo[1];
-    	}
-    	
-    	for (int i = 0; i < toParse.length; i++)
-    	{
-    		String answer = answers[i];
-    		
-    		if (answer.equals("1"))
-    			finalAnswer[i] = 1;
-    		else if (answer.equals("0"))
-    			finalAnswer[i] = 0;
-    		else
-    			finalAnswer[i] = -1;
-    	}
-    	
-    	return finalAnswer;
     }
 }
