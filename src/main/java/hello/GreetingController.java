@@ -66,23 +66,30 @@ public class GreetingController
 	    		String line = scan.nextLine(); // Each line stored in this string
 	    		
 	    		// One line has an asterisk, so that line will be rewritten
-	    		if (line.contains("*") && score >= MAX_SCORE/2 && score <= MAX_SCORE)
+	    		if (line.contains("*") && score >= 3*MAX_SCORE/4 && score <= MAX_SCORE)
 	    		{
 	    			line = "<p>It seems to be a sandwich."  +
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
 	    		}
-	    		else if (line.contains("*") && score < MAX_SCORE/2 && score >= 0)
+	    		else if (line.contains("*") && score <= MAX_SCORE/4 && score >= 0)
 	    		{
 	    			line = "<p>It does not seem to be a sandwich." +
     						" It has a  score of " + score + 
     						" out of " + MAX_SCORE + ".</p>";
 	    		}
+	    		else if (line.contains("*") && score < 3*MAX_SCORE/4 && score > MAX_SCORE/4)
+	    		{
+	    			line = "<p>Honestly, we can't be sure whether it is a sandwich or not." +
+	    					" It has a  score of " + score + 
+    						" out of " + MAX_SCORE + ".</p>";
+	    		}
 	    		else if (line.contains("*") && (score < 0 || score > MAX_SCORE))
 	    		{
 	    			line = "<p>Please don't mess with our code, we know what we're doing." +
-    						"</p>" + MAX_SCORE + " " + score;
+    						"</p>";
 	    		}
+	    		
 	    		
 	    		text += line + "\n";
 	    	}
