@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Comic Sans", "Comic Sans MS", "Chalkboard", "ChalkboardSE-Regular", "Marker Felt", "Purisa", "URW Chancery L", cursive, sans-serif;
+            font-size: 16px;
+            line-height: 20px;
+            color: #ffff00;
+            background-image: url("https://i.giphy.com/TQt1xVuNhc9hK.gif");
+            margin-left: 2cm;
+        }
+        
+        h1 {
+            font-size: 44px;
+            color: #ff0000;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Are you eating a sandwich?</h1>
+
+    <br>
+
+    <form name="form" action="http://localhost:8080/results" method="POST">
+
+        <p>
+            1. Does the object in question have a type of starch? Weight: 6
+        </p>
+        <p>
+            <input type="radio" name="1" value=6 checked> Yes
+            <br>
+            <input type="radio" name="1" value=0> No
+            <br>
+        </p>
+
+        <p>
+            2. Does it have a non-starch interior? Weight: 9
+        </p>
+        <p>
+            <input type="radio" name="2" value=9 checked> Yes
+            <br>
+            <input type="radio" name="2" value=0> No
+            <br>
+        </p>
+
+        <p>
+            3. If there is a type of starch in the item, does it surround the non-starch interior on two (or more) sides? Weight: 7
+        </p>
+        <p>
+            <input type="radio" name="3" value=7 checked> Yes
+            <br>
+            <input type="radio" name="3" value=0> No
+            <br>
+        </p>
+
+        <p>
+            4. Is it edible? Weight: 15
+        </p>
+        <p>
+            <input type="radio" name="4" value=15 checked> Yes
+            <br>
+            <input type="radio" name="4" value=0> No
+            <br>
+        </p>
+
+        <p>
+            5. Is the sky blue? Weight: 2
+        </p>
+
+        <p>
+            <input type="radio" name="5" value=2 checked> Yes
+            <br>
+            <input type="radio" name="5" value=0> No
+            <br>
+        </p>
+
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script>
+        function forward() {
+            var information = $("form").serializeArray();
+
+            var toReturn = [];
+            for (i = 0; i < information.length; i++) {
+                toReturn[i] = information[i].value;
+            }
+            console.log(toReturn);
+            $.ajax({
+                url: "/results",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                data: JSON.stringify({
+                    answers: toReturn
+                }),
+                success: function(data, textStatus, xhr) {
+                    document.open();
+                    document.write(xhr.responseText);
+                    document.close();
+                }
+            });
+        }
+    </script>
+    <p style="text-align:center">
+        <button onclick="forward()">Sandwich?</button>
+    </p>
+    <br>
+
+</body>
+
+<p style="text-align:center">Hit Counter<br><img src="http://code.divshot.com/geo-bootstrap/img/test/counter2.gif"></p>
+
+</html>

@@ -14,7 +14,7 @@ public class GreetingController
 {
 	private static int maxScore;
 	
-    @RequestMapping("/")
+    @RequestMapping(value="/")
     public String sandwich()
     {
     	String text = "";
