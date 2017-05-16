@@ -64,25 +64,26 @@ public class GreetingController
 	    	while (scan.hasNextLine()) // Goes through each line of results.html
 	    	{
 	    		String line = scan.nextLine(); // Each line stored in this string
+	    		String itIsNPercentASandwich = "<br>It is " + (int)(100*((double)score/(MAX_SCORE))) + "% a sandwich, according to Radical Sandwich Anarchism's <i>Definition of a Sandwich</i>.";
 	    		
 	    		// One line has an asterisk, so that line will be rewritten
 	    		if (line.contains("*") && score >= 3*MAX_SCORE/4 && score <= MAX_SCORE)
 	    		{
 	    			line = "<p>It seems to be a sandwich."  +
     						" It has a  score of " + score + 
-    						" out of " + MAX_SCORE + ".</p>";
+    						" out of " + MAX_SCORE + "." + itIsNPercentASandwich + "</p>";
 	    		}
 	    		else if (line.contains("*") && score <= MAX_SCORE/4 && score >= 0)
 	    		{
 	    			line = "<p>It does not seem to be a sandwich." +
     						" It has a  score of " + score + 
-    						" out of " + MAX_SCORE + ".</p>";
+    						" out of " + MAX_SCORE + "." + itIsNPercentASandwich + "</p>";
 	    		}
 	    		else if (line.contains("*") && score < 3*MAX_SCORE/4 && score > MAX_SCORE/4)
 	    		{
 	    			line = "<p>Honestly, we can't be sure whether it is a sandwich or not." +
 	    					" It has a  score of " + score + 
-    						" out of " + MAX_SCORE + ".</p>";
+    						" out of " + MAX_SCORE + "." + itIsNPercentASandwich + "</p>";
 	    		}
 	    		else if (line.contains("*") && (score < 0 || score > MAX_SCORE))
 	    		{
