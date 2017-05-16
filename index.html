@@ -11,13 +11,17 @@
             line-height: 20px;
             color: #ffff00;
             background-image: url("https://i.giphy.com/TQt1xVuNhc9hK.gif");
-            margin-left: 2cm;
         }
         
         h1 {
             font-size: 44px;
             color: #ff0000;
             text-align: center;
+        }
+        
+        h2 {
+        	margin-left: 20px;
+        	font-size: 16px;
         }
     </style>
 </head>
@@ -28,57 +32,42 @@
     <br>
 
     <form name="form" action="http://localhost:8080/results" method="POST">
-
-        <p>
+		<h2>
             1. Does the object in question have a type of starch? Weight: 6
-        </p>
-        <p>
+            <br>
             <input type="radio" name="1" value=6 checked> Yes
             <br>
             <input type="radio" name="1" value=0> No
-            <br>
-        </p>
+            <br><br>
 
-        <p>
             2. Does it have a non-starch interior? Weight: 9
-        </p>
-        <p>
+            <br>
             <input type="radio" name="2" value=9 checked> Yes
             <br>
             <input type="radio" name="2" value=0> No
-            <br>
-        </p>
+            <br><br>
 
-        <p>
             3. If there is a type of starch in the item, does it surround the non-starch interior on two (or more) sides? Weight: 7
-        </p>
-        <p>
+            <br>
             <input type="radio" name="3" value=7 checked> Yes
             <br>
             <input type="radio" name="3" value=0> No
-            <br>
-        </p>
+            <br><br>
 
-        <p>
             4. Is it edible? Weight: 15
-        </p>
-        <p>
+            <br>
             <input type="radio" name="4" value=15 checked> Yes
             <br>
             <input type="radio" name="4" value=0> No
-            <br>
-        </p>
+            <br><br>
 
-        <p>
             5. Is the sky blue? Weight: 2
-        </p>
-
-        <p>
+            <br>
             <input type="radio" name="5" value=2 checked> Yes
             <br>
             <input type="radio" name="5" value=0> No
-            <br>
-        </p>
+            <br><br>
+		</h2>
 
     </form>
 
