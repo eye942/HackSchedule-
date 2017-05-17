@@ -17,28 +17,11 @@ public class GreetingController
     @RequestMapping(value="/")
     public String sandwich()
     {
-    	String text = "";
-    	Scanner scan = null;
-
-    	try {
-			scan = new Scanner(new File("index.html"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-    	if (scan != null)
-    	{
-	    	while (scan.hasNextLine())
-	    	{
-	    		text += scan.nextLine() + "\n";
-	    	}
-    	}
-
-        return text;
+    	return "Try this";
     }
     
     // Returns the results page when valid
-    @RequestMapping(value="/results",
+    @RequestMapping(value="/public/results",
     				method=RequestMethod.POST)
     public String result(@RequestBody Answers answers) // Puts HTML form into Answers
     {
