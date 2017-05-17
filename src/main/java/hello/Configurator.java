@@ -9,16 +9,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class Configurator extends WebMvcConfigurerAdapter
 {
-    @Override  
-    public void addViewControllers(ViewControllerRegistry registry) {  
+	// Configure paths and redirects
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry)
+    {  
+        registry.addRedirectViewController("/", "/index");
         registry.addViewController("/index").setViewName("index.html");
-        registry.addViewController("/results").setViewName("results.html");
-        //registry.addViewController("/error").setViewName("error.html"); 
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);  
     }  
   
     @Override  
-    public void configurePathMatch(PathMatchConfigurer configurer) {  
+    public void configurePathMatch(PathMatchConfigurer configurer)
+    {  
         super.configurePathMatch(configurer);  
         configurer.setUseSuffixPatternMatch(false);  
     }  

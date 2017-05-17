@@ -10,15 +10,16 @@ import org.springframework.stereotype.Controller;
 @SpringBootApplication @Controller
 public class Application extends SpringBootServletInitializer
 {	
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	@Override // Will be executed once run on server
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
+	{
+		GreetingController.setMax(); // Sets max score
         return application.sources(Application.class);
     }
 	
 	// Simply runs the applications
-    public static void main(String[] args) {
-    	//QuestionsParser.parseQuestionsFromFile();
-    	QuestionsParser.setScores();
+    public static void main(String[] args)
+    {
         SpringApplication.run(Application.class, args);
     }
 }

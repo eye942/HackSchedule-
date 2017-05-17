@@ -13,38 +13,44 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController
 {
 	private static int maxScore;
-	
-    @RequestMapping(value="/")
-    public String sandwich()
-    {
-    	return "Try this";
-    }
     
     // Returns the results page when valid
-    @RequestMapping(value="/public/results",
+    @RequestMapping(value="/results",
     				method=RequestMethod.POST)
     public String result(@RequestBody Answers answers) // Puts HTML form into Answers
     {
     	final int MAX_SCORE = maxScore;
     	
-    	int[] answerList = answers.getAnswers();
-    	// SandCalc obj created, which holds the array of
-    	// answers made with answerArray method
-    	SandwichCalculator sandCalc = new SandwichCalculator(answerList);
-    	int score = sandCalc.calculateResult(MAX_SCORE); // Calculates score based on array values
+    	int score = answers.answerSum(); // Calculates score based on array values
     	
     	String text = "";
     	Scanner scan = null;
-
-    	try {
-			scan = new Scanner(new File("results.html"));
+    	
+    	// Gets file path for a server
+    	String absolute = getClass().getProtectionDomain().getCodeSource().getLocation().toExternalForm();
+    	absolute = absolute.substring(0, absolute.length() - 1);
+    	absolute = absolute.substring(0, absolute.lastIndexOf("/") + 1);
+    	absolute = absolute.substring(6);// 6 because this includes "file:/" at the beginning
+    	// Goes up to WEB-INF in directory
+    	
+    	File file = new File(absolute.substring(System.getProperty("user.dir").length()) + 
+								"classes/META-INF/resources/results.html");
+    	// else if in STS:
+    	//File file = new File("src/main/resources/META-INF/resources/results.html");
+    	// Also for STS, change results.html redirect
+    	
+    	// Finds file
+    	try
+    	{
+			scan = new Scanner(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
+    	// Somewhat dynamic page that changes based on the score
     	if (scan != null)
     	{
-	    	while (scan.hasNextLine()) // Goes through each line of results.html
+	    	while (scan.hasNextLine()) // Cycles through each line of results.html
 	    	{
 	    		String line = scan.nextLine(); // Each line stored in this string
 	    		String itIsNPercentASandwich = "<br>It is " + (int)(100*((double)score/(MAX_SCORE))) + "% a sandwich, according to Radical Sandwich Anarchism's <i>Definition of a Sandwich</i>.";
@@ -74,7 +80,6 @@ public class GreetingController
     						"</p>";
 	    		}
 	    		
-	    		
 	    		text += line + "\n";
 	    	}
     	}
@@ -82,8 +87,13 @@ public class GreetingController
         return text;
     }
     
-    public static void changeMaxScore(int mxScore)
+    // Max score is set by adding the weights
+    public static void setMax()
     {
-    	maxScore = mxScore;
+    	int[] weights = {6, 9, 7, 15, 2};
+		int sum = 0;
+		for (int i : weights)
+			sum += i;
+		maxScore = sum;
     }
 }

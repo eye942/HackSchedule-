@@ -1,5 +1,6 @@
 package hello;
 
+// Gets input from jquery
 public class Answers
 {
 	private int[] answers;
